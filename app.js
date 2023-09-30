@@ -10,11 +10,16 @@ require("dotenv").config();
 
 // Middleware
 app.use(bodyParser.json());
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-  })
-);
+
+const corsOptions = {
+  origin: "https://user-registration-frontend.vercel.app",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // You might need to set this depending on your use case
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+
 app.use("/api/user", userRoutes);
 
 app.use(express.static(path.join(__dirname + "/public")));
